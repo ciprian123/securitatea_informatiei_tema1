@@ -63,9 +63,6 @@ def client_a_thread(conn, ip, port):
         decrypted_counter = Decrypter.simulate_aes_cfb_decryption(decoded_response[0], secret_key1, iv_k1)
         decrypted_file_content = Decrypter.simulate_aes_cfb_decryption(decoded_response[1], secret_key1, iv_k1)
 
-    print('[SERVER] Decrypted file content:')
-    print(decrypted_file_content)
-
     # encrypting data and sending it to client b
     if encryption_mode == 'cbc':
         encrypted_counter = Encryptor.simulate_aes_cfb_encryption(decrypted_counter, secret_key2, iv_k2)[0]
