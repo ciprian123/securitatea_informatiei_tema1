@@ -40,7 +40,7 @@ class Decrypter:
                 plain_text_block = Decrypter.xor_arrays(block, iv)
             else:
                 plain_text_block = Decrypter.xor_arrays(block, encrypted_blocks[i - 1])
-            result += str(plain_text_block.decode('utf8').strip())
+            result += str(plain_text_block.decode('utf8'))
         return result
 
     @staticmethod
@@ -57,5 +57,5 @@ class Decrypter:
             else:
                 tmp = aes_decrypter.encrypt(bytes(encrypted_blocks[i - 1]))
                 plain_text_block = Decrypter.xor_arrays(tmp, encrypted_block)
-            result += str(plain_text_block.decode('utf8').strip())
+            result += str(plain_text_block.decode('utf8'))
         return result
