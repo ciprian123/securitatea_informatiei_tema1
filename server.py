@@ -1,20 +1,28 @@
 import sys
 import socket
 import pickle
+from random import randint
 
 from threading import Thread
 from encryptor import Encryptor
 from decrypter import Decrypter
+
+def get_random_string(n):
+    digits = "0123456789"
+    string = ""
+    for i in range(n):
+        string += (digits[randint(0, 9)])
+    return bytes(string.encode('utf8'))
 
 
 secret_key3 = '1111222233334444'
 iv_k3 = b'1002492919392444'
 
 secret_key2 = '1122334455667788'
-iv_k2 = b'1472402919392247'
+iv_k2 = get_random_string(16)
 
 secret_key1 = '1234567890123456'
-iv_k1 = b'1234326900766173'
+iv_k1 = get_random_string(16)
 
 client_a_enc_mode = ''
 encrypted_message_pickle = ''
@@ -62,6 +70,9 @@ def client_a_thread(conn, ip, port):
     else:
         decrypted_counter = Decrypter.simulate_aes_cfb_decryption(decoded_response[0], secret_key1, iv_k1)
         decrypted_file_content = Decrypter.simulate_aes_cfb_decryption(decoded_response[1], secret_key1, iv_k1)
+
+    print('[SERVER] Decrypted file content:')
+    print(decrypted_file_content)
 
     # encrypting data and sending it to client b
     if encryption_mode == 'cbc':
